@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medivo | EMR &amp; Connected Health Technology for Modern Clinics</title>
+<meta name="description" content="Medivo EMR anchors a connected health technology platform for modern clinics — AI-assisted documentation, patient engagement, virtual care, interoperability, and billing.">
+<link rel="canonical" href="https://www.medivosolutions.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Medivo">
+<meta property="og:title" content="Medivo | EMR &amp; Connected Health Technology for Modern Clinics">
+<meta property="og:description" content="Medivo EMR anchors a connected health technology platform for modern clinics — AI-assisted documentation, patient engagement, virtual care, interoperability, and billing.">
+<meta property="og:url" content="https://www.medivosolutions.com/">
+<meta property="og:image" content="https://medivosolutions.com/assets/img/medivo-logo-main.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="https://medivosolutions.com/assets/img/medivo-logo-main.png">
+<style>/* ===========================================================
+   MEDIVO — shared stylesheet
+   Design system: "connected care" — navy/cyan (technology) +
+   amber (human) duality, node-graph as recurring signature motif.
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+
+:root{
+  /* ---- color tokens ---- */
+  --ink:        #0E1B22;
+  --paper:      #FFFFFF;
+  --paper-alt:  #F1F6F6;
+  --navy:       #0B3D57;
+  --navy-deep:  #082A3D;
+  --cyan:       #1FB8AA;
+  --cyan-text:  #0D7D72; /* darker teal — meets 4.5:1 text contrast on white, unlike --cyan */
+  --cyan-soft:  #E4F5F3;
+  --amber:      #D69A3C;
+  --amber-deep: #B87F28;
+  --slate:      #56666D;
+  --border:     #DEE7E8;
+  --border-dark: rgba(255,255,255,0.16);
+
+  /* ---- type tokens ---- */
+  --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+  --font-body:    'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  /* ---- layout tokens ---- */
+  --container: 1180px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(14,27,34,0.06);
+  --shadow-md: 0 8px 24px rgba(14,27,34,0.08);
+  --shadow-lg: 0 20px 48px rgba(8,42,61,0.16);
+}
+
+/* ---------------------------------------------------------
+   Reset
+   --------------------------------------------------------- */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+}
+body{
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+img{ max-width: 100%; display: block; }
+a{ color: inherit; text-decoration: none; }
+ul{ margin: 0; padding: 0; list-style: none; }
+button{ font-family: inherit; cursor: pointer; }
+h1,h2,h3,h4{ font-family: var(--font-display); margin: 0; line-height: 1.08; font-weight: 700; letter-spacing: -0.02em; }
+p{ margin: 0; }
+svg{ display: block; }
+
+/* visible keyboard focus everywhere */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.container{ max-width: var(--container); margin: 0 auto; padding: 0 24px; }
+.visually-hidden{ position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+
+/* ---------------------------------------------------------
+   Type scale
+   --------------------------------------------------------- */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cyan-text);
+}
+.eyebrow::before{
+  content:""; width:16px; height:1px; background: var(--cyan-text);
+}
+.eyebrow.on-dark{ color: #7FE4D9; }
+.eyebrow.amber{ color: var(--amber-deep); }
+.eyebrow.amber::before{ background: var(--amber-deep); }
+
+h1.h-xl{ font-size: clamp(2.7rem, 5.6vw, 4.6rem); }
+h2.h-lg{ font-size: clamp(1.9rem, 3.4vw, 2.9rem); }
+h3.h-md{ font-size: clamp(1.15rem, 1.6vw, 1.35rem); }
+
+/* Gradient text — for one emphasized word or phrase per headline, so it
+   reads as deliberate emphasis rather than a novelty effect. */
+.text-gradient{
+  background: linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 45%, var(--cyan-text) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text-gradient.on-dark{
+  background: linear-gradient(120deg, #ffffff 0%, #BFEFE9 55%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.lede{ font-size: clamp(1.05rem, 1.4vw, 1.2rem); color: var(--slate); max-width: 54ch; }
+.body-text{ color: var(--slate); font-size: 1rem; }
+
+/* ---------------------------------------------------------
+   Buttons
+   --------------------------------------------------------- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding: 13px 24px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1.5px solid transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease, color .15s ease;
+  white-space: nowrap;
+}
+.btn:hover{ transform: translateY(-1px); }
+.btn-primary{ background: var(--amber); color: var(--navy-deep); box-shadow: var(--shadow-sm); }
+.btn-primary:hover{ background: var(--amber-deep); box-shadow: var(--shadow-md); }
+.btn-ghost{ border-color: var(--border); color: var(--ink); background: var(--paper); }
+.btn-ghost:hover{ border-color: var(--navy); }
+.btn-ghost-dark{ border-color: var(--border-dark); color: #fff; background: transparent; }
+.btn-ghost-dark:hover{ border-color: #fff; }
+.btn-block{ width:100%; }
+.btn[disabled]{ opacity:0.6; cursor:not-allowed; transform:none; }
+
+/* ---------------------------------------------------------
+   Utility top bar + header
+   --------------------------------------------------------- */
+.utility-bar{
+  background: var(--navy-deep);
+  color: rgba(255,255,255,0.82);
+  font-size: 0.82rem;
+}
+.utility-bar .container{ display:flex; align-items:center; justify-content:space-between; gap: 16px; padding-top:8px; padding-bottom:8px; flex-wrap: wrap; }
+.utility-bar a{ color:#fff; font-weight:600; }
+.utility-bar a:hover{ color: var(--cyan); }
+
+.site-header{
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.site-header .container{ display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px; gap: 20px; }
+.brand{ display:flex; align-items:center; gap:10px; }
+.brand img{ height: 40px; width:auto; }
+.brand-word{ font-family: var(--font-display); font-weight:700; font-size:1.15rem; color: var(--navy-deep); }
+
+.nav-desktop{ display:flex; align-items:center; gap: 6px; }
+.nav-desktop > li{ position: relative; }
+.nav-link{
+  display:flex; align-items:center; gap:5px;
+  padding: 10px 14px; border-radius: 999px;
+  font-weight: 600; font-size: 0.93rem; color: var(--ink);
+  transition: background .15s ease, color .15s ease;
+}
+.nav-link:hover{ background: var(--paper-alt); color: var(--navy-deep); }
+.nav-caret{ width:9px; height:9px; border-right:1.6px solid currentColor; border-bottom:1.6px solid currentColor; transform: rotate(45deg) translateY(-2px); opacity:.6; }
+
+.nav-dropdown{
+  position:absolute; top: calc(100% + 8px); left: 0;
+  background: var(--paper); border:1px solid var(--border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  min-width: 260px; padding: 10px;
+  opacity:0; visibility:hidden; transform: translateY(6px);
+  transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+}
+.nav-desktop > li:hover .nav-dropdown,
+.nav-desktop > li:focus-within .nav-dropdown{ opacity:1; visibility:visible; transform:translateY(0); }
+.nav-dropdown a{ display:block; padding:10px 12px; border-radius: var(--radius-sm); font-size:0.9rem; font-weight:500; color: var(--ink); }
+.nav-dropdown a:hover{ background: var(--paper-alt); color: var(--navy-deep); }
+
+.header-cta{ display:flex; align-items:center; gap: 10px; }
+.menu-toggle{
+  display:none; border:1px solid var(--border); background:var(--paper); border-radius: 10px; padding: 9px 11px;
+}
+.menu-toggle span{ display:block; width:19px; height:2px; background: var(--ink); margin: 4px 0; border-radius:2px; }
+
+.nav-mobile{ display:none; flex-direction:column; gap:2px; padding: 10px 0 18px; border-top: 1px solid var(--border); }
+.nav-mobile a{ padding: 12px 4px; font-weight:600; border-bottom:1px solid var(--border); }
+.nav-mobile .btn{ margin-top:12px; }
+
+@media (max-width: 940px){
+  .nav-desktop, .header-cta .btn-ghost{ display:none; }
+  .menu-toggle{ display:inline-flex; flex-direction:column; align-items:center; justify-content:center; }
+  body.nav-open .nav-mobile{ display:flex; }
+}
+
+/* ---------------------------------------------------------
+   Sections
+   --------------------------------------------------------- */
+section{ position: relative; }
+section[id]{ scroll-margin-top: 100px; } /* keeps the sticky header from covering anchor-linked sections */
+.section-pad{
+  padding: 88px 0;
+  background:
+    radial-gradient(650px 380px at 96% 4%, rgba(31,184,170,0.045), transparent 60%),
+    radial-gradient(600px 360px at 2% 96%, rgba(214,154,60,0.04), transparent 55%);
+}
+@media (max-width: 720px){ .section-pad{ padding: 60px 0; } }
+.section-alt{
+  background:
+    radial-gradient(700px 420px at 92% 0%, rgba(31,184,170,0.07), transparent 60%),
+    radial-gradient(650px 400px at 4% 100%, rgba(214,154,60,0.06), transparent 55%),
+    var(--paper-alt);
+}
+.section-head{ max-width: 640px; margin-bottom: 44px; }
+.section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+.section-head h2{ margin-top:10px; }
+.section-head .lede{ margin-top:14px; }
+
+/* faint node-lattice watermark used to echo the hero signature */
+.lattice-bg{
+  position:absolute; inset:0; overflow:hidden; pointer-events:none;
+}
+.lattice-bg svg{ position:absolute; opacity:0.5; }
+
+/* ---------------------------------------------------------
+   Hero
+   --------------------------------------------------------- */
+.hero{
+  background:
+    radial-gradient(1100px 620px at 12% -15%, rgba(31,184,170,0.20), transparent 58%),
+    radial-gradient(900px 560px at 108% 8%, rgba(214,154,60,0.16), transparent 55%),
+    radial-gradient(1000px 680px at 46% 118%, rgba(11,61,87,0.10), transparent 60%),
+    linear-gradient(180deg, #F4FAFA 0%, #FFFFFF 72%);
+  padding: 56px 0 40px;
+  overflow:hidden;
+  position:relative;
+}
+.hero::before{
+  content:"";
+  position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image: radial-gradient(rgba(11,61,87,0.09) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(760px 480px at 78% 18%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(760px 480px at 78% 18%, #000 0%, transparent 72%);
+}
+.hero .container{ position:relative; z-index:1; }
+.hero-grid{ display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items:center; }
+.hero-copy h1{ margin-top:14px; color: var(--navy-deep); }
+.hero-copy .lede{ margin-top:18px; }
+.hero-actions{ display:flex; gap:14px; margin-top:30px; flex-wrap:wrap; }
+.trust-strip{
+  margin-top:34px; padding-top:22px; border-top:1px solid var(--border);
+  display:flex; gap:26px; flex-wrap:wrap;
+}
+.trust-strip .item{ display:flex; align-items:center; gap:9px; font-size:0.86rem; color:var(--slate); font-weight:500; }
+.trust-strip svg{ width:17px; height:17px; color: var(--cyan-text); flex-shrink:0; }
+
+.hero-visual{ position:relative; }
+.hero-visual svg{ width:100%; height:auto; }
+
+@media (max-width: 940px){
+  .hero-grid{ grid-template-columns: 1fr; }
+  .hero-visual{ order:-1; max-width: 420px; margin: 0 auto; }
+}
+
+/* node graph animation */
+.ng-hub-ring{ transform-origin: center; animation: ngBreathe 4.5s ease-in-out infinite; }
+.ng-link{ stroke-dasharray: 5 9; animation: ngFlow 2.6s linear infinite; }
+.ng-node{ transition: transform .2s ease; }
+.ng-scan{ transform-origin: 280px 230px; animation: ngRotate 14s linear infinite; }
+.ng-particles circle{ fill: var(--amber); animation: ngTwinkle 3.2s ease-in-out infinite; }
+.ng-particles circle:nth-child(2n){ fill: var(--cyan); animation-duration: 4s; }
+.ng-particles circle:nth-child(3n){ animation-delay: -1.1s; }
+.ng-particles circle:nth-child(5n){ animation-delay: -2.3s; }
+@keyframes ngBreathe{ 0%,100%{ opacity:.35; transform:scale(1);} 50%{ opacity:.7; transform:scale(1.05);} }
+@keyframes ngFlow{ to{ stroke-dashoffset: -28; } }
+@keyframes ngRotate{ to{ transform: rotate(360deg); } }
+@keyframes ngTwinkle{ 0%,100%{ opacity:.25; } 50%{ opacity:.85; } }
+@media (prefers-reduced-motion: reduce){
+  .ng-hub-ring, .ng-link, .ng-scan, .ng-particles circle{ animation: none; }
+  .ng-pulse{ display:none; } /* SMIL animateMotion isn't covered by the CSS animation-duration override above */
+}
+
+/* ---------------------------------------------------------
+   Icon cards (positioning / value props)
+   --------------------------------------------------------- */
+.icon-card-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+.icon-card{
+  background: var(--paper); border:1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 28px 26px; box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.icon-card:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.icon-tile{
+  width:46px; height:46px; border-radius: 13px; background: var(--cyan-soft); color: var(--navy);
+  display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+}
+.icon-tile svg{ width:23px; height:23px; }
+.icon-card h3{ color: var(--navy-deep); margin-bottom:8px; }
+.icon-card p{ color: var(--slate); font-size:0.95rem; }
+
+@media (max-width: 860px){ .icon-card-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------
+   Product / module cards
+   --------------------------------------------------------- */
+.product-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.product-card{
+  position:relative;
+  background: var(--paper); border:1px solid var(--border); border-radius: var(--radius-lg);
+  padding: 26px 24px 24px; box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
+  display:flex; flex-direction:column;
+}
+.product-card:hover{ box-shadow: var(--shadow-md); transform: translateY(-2px); border-color: rgba(31,184,170,0.4); }
+.product-card.is-star{ border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber) inset, var(--shadow-sm); }
+.product-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; margin-bottom:16px; }
+.module-code{
+  font-family: var(--font-mono); font-size:0.72rem; font-weight:600; letter-spacing:0.06em;
+  color: var(--navy); background: var(--cyan-soft); padding:5px 9px; border-radius:6px;
+}
+.star-tag{
+  font-family: var(--font-mono); font-size:0.68rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  color: var(--amber-deep); background: #FBF0DC; padding:5px 9px; border-radius:6px;
+}
+.product-card .icon-tile{ margin-bottom:14px; }
+.product-card h3{ color: var(--navy-deep); margin-bottom:8px; }
+.product-card p{ color: var(--slate); font-size:0.93rem; flex-grow:1; }
+.product-card .card-link{ margin-top:16px; font-weight:600; font-size:0.88rem; color: var(--navy); display:inline-flex; align-items:center; gap:6px; }
+.product-card .card-link svg{ width:14px; height:14px; transition: transform .15s ease; }
+.product-card:hover .card-link svg{ transform: translateX(3px); }
+
+@media (max-width: 940px){ .product-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px){ .product-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------
+   Clinic value rows
+   --------------------------------------------------------- */
+.value-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+.value-card{ padding: 4px; }
+.value-card .icon-tile{ background: #FBF0DC; color: var(--amber-deep); }
+.value-card h3{ color: var(--navy-deep); margin-bottom:8px; }
+.value-card p{ color: var(--slate); font-size:0.95rem; }
+@media (max-width: 860px){ .value-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------
+   Persona / audience cards (icon-based — no stock photography)
+   --------------------------------------------------------- */
+.persona-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+.persona-card{
+  background: var(--navy); border-radius: var(--radius-lg); padding: 26px 22px;
+  color:#fff; min-height: 190px; display:flex; flex-direction:column; justify-content:flex-end;
+  position:relative; overflow:hidden;
+}
+.persona-card::before{
+  content:""; position:absolute; inset:0;
+  background: radial-gradient(120px 120px at 85% 15%, rgba(31,184,170,0.35), transparent 70%);
+}
+.persona-card .icon-tile{ background: rgba(255,255,255,0.12); color:#fff; position:relative; z-index:1; }
+.persona-card h3{ font-size:1.02rem; color:#fff; margin-bottom:6px; position:relative; z-index:1; }
+.persona-card p{ font-size:0.86rem; color: rgba(255,255,255,0.75); position:relative; z-index:1; }
+
+@media (max-width: 940px){ .persona-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px){ .persona-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------
+   Trust / security band (dark)
+   --------------------------------------------------------- */
+.trust-band{
+  position:relative; overflow:hidden;
+  background:
+    radial-gradient(900px 500px at 85% -10%, rgba(31,184,170,0.22), transparent 55%),
+    radial-gradient(700px 460px at 8% 110%, rgba(214,154,60,0.14), transparent 55%),
+    linear-gradient(160deg, var(--navy-deep) 0%, #0A3348 60%, var(--navy-deep) 100%);
+  color:#fff;
+}
+.trust-band::before{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:0;
+  background-image: radial-gradient(rgba(255,255,255,0.09) 1px, transparent 1px);
+  background-size: 30px 30px;
+  -webkit-mask-image: radial-gradient(650px 420px at 15% 15%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(650px 420px at 15% 15%, #000 0%, transparent 70%);
+}
+.trust-band .container{ position:relative; z-index:1; }
+.trust-band .section-head .lede{ color: rgba(255,255,255,0.72); }
+.trust-band .section-head h2{ color:#fff; }
+.trust-band-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:18px; margin-top: 8px; }
+.trust-item{
+  border:1px solid var(--border-dark); border-radius: var(--radius-md); padding: 22px 20px;
+  background: rgba(255,255,255,0.03);
+}
+.trust-item .icon-tile{ background: rgba(31,184,170,0.16); color: #6FE4D6; margin-bottom:14px; }
+.trust-item h3{ font-size:1rem; color:#fff; margin-bottom:6px; }
+.trust-item p{ font-size:0.86rem; color: rgba(255,255,255,0.68); }
+
+.placeholder-note{
+  margin-top: 34px; padding: 16px 18px; border-radius: var(--radius-md);
+  border:1.5px dashed rgba(255,255,255,0.35); background: rgba(255,255,255,0.04);
+  font-size:0.86rem; color: rgba(255,255,255,0.75); display:flex; gap:10px; align-items:flex-start;
+}
+.placeholder-note svg{ width:18px; height:18px; flex-shrink:0; margin-top:1px; color:#6FE4D6; }
+.placeholder-note strong{ color:#fff; }
+
+@media (max-width: 940px){ .trust-band-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px){ .trust-band-grid{ grid-template-columns: 1fr; } }
+
+/* ---------------------------------------------------------
+   Investor section
+   --------------------------------------------------------- */
+.investor-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items:center; }
+.investor-list{ display:flex; flex-direction:column; gap:0; margin-top: 26px; }
+.investor-list li{
+  display:flex; gap:16px; padding: 18px 0; border-top:1px solid var(--border);
+}
+.investor-list li:last-child{ border-bottom:1px solid var(--border); }
+.investor-list .code{
+  font-family: var(--font-mono); font-weight:600; color: var(--navy); font-size:0.85rem;
+  min-width:64px;
+}
+.investor-list h4{ font-family: var(--font-body); font-weight:700; font-size:0.98rem; color: var(--navy-deep); margin-bottom:3px; }
+.investor-list p{ font-size:0.88rem; color: var(--slate); }
+.investor-visual{
+  background: var(--paper-alt); border-radius: var(--radius-lg); border:1px solid var(--border);
+  padding: 30px; min-height: 320px; display:flex; align-items:center; justify-content:center;
+}
+@media (max-width: 900px){ .investor-grid{ grid-template-columns:1fr; gap:32px; } }
+
+/* ---------------------------------------------------------
+   CTA / contact form
+   --------------------------------------------------------- */
+.cta-band{
+  background:
+    radial-gradient(800px 480px at 90% 100%, rgba(214,154,60,0.18), transparent 55%),
+    radial-gradient(700px 460px at 6% 0%, rgba(31,184,170,0.16), transparent 55%),
+    linear-gradient(135deg, var(--navy-deep), var(--navy) 60%, #0C4B69);
+  color:#fff; overflow:hidden; position:relative;
+}
+.cta-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:52px; align-items:start; }
+.cta-copy h2{ color:#fff; }
+.cta-copy .lede{ color: rgba(255,255,255,0.75); margin-top:14px; }
+.cta-points{ margin-top:28px; display:flex; flex-direction:column; gap:14px; }
+.cta-points li{ display:flex; gap:12px; align-items:flex-start; font-size:0.92rem; color: rgba(255,255,255,0.85); }
+.cta-points svg{ width:18px; height:18px; color:#6FE4D6; flex-shrink:0; margin-top:2px; }
+
+.contact-form{
+  background: var(--paper); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-lg);
+}
+.form-row{ margin-bottom:16px; }
+.form-row label{ display:block; font-size:0.84rem; font-weight:600; color: var(--navy-deep); margin-bottom:7px; }
+.form-row .req{ color: var(--amber-deep); }
+.form-row input, .form-row select, .form-row textarea{
+  width:100%; padding: 11px 13px; border-radius: 10px; border:1.5px solid var(--border);
+  font-family: var(--font-body); font-size:0.94rem; color: var(--ink); background:#fff;
+  transition: border-color .15s ease;
+}
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus{ border-color: var(--cyan); outline:none; }
+.form-row textarea{ resize: vertical; min-height: 96px; }
+.role-toggle{ display:flex; gap:8px; flex-wrap:wrap; }
+.role-toggle input{ position:absolute; opacity:0; width:1px; height:1px; }
+.role-toggle label{
+  margin:0; padding: 9px 14px; border-radius:999px; border:1.5px solid var(--border);
+  font-size:0.85rem; font-weight:600; color: var(--slate); transition: all .15s ease;
+}
+.role-toggle input:checked + label{ background: var(--navy); border-color: var(--navy); color:#fff; }
+.role-toggle input:focus-visible + label{ outline:2px solid var(--cyan); outline-offset:2px; }
+.form-note{ font-size:0.78rem; color: var(--slate); margin-top:12px; text-align:center; }
+.form-status{ font-size:0.86rem; margin-top:12px; display:none; padding:10px 12px; border-radius:8px; }
+.form-status.visible{ display:block; }
+.form-status.success{ background:#E7F6F3; color:#0B6B57; }
+
+/* ---------------------------------------------------------
+   Footer
+   --------------------------------------------------------- */
+.site-footer{ background: var(--ink); color: rgba(255,255,255,0.68); }
+.footer-top{ padding: 60px 0 40px; display:grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+.footer-brand img{ height:34px; margin-bottom:16px; filter: brightness(0) invert(1); }
+.footer-brand p{ font-size:0.87rem; max-width: 32ch; color: rgba(255,255,255,0.55); }
+.footer-col h4{ font-family: var(--font-mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color: rgba(255,255,255,0.5); margin-bottom:16px; font-weight:600; }
+.footer-col ul{ display:flex; flex-direction:column; gap:11px; }
+.footer-col a{ font-size:0.9rem; color: rgba(255,255,255,0.78); }
+.footer-col a:hover{ color: var(--cyan); }
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.12); padding: 20px 0 30px;
+  display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+  font-size:0.82rem; color: rgba(255,255,255,0.48);
+}
+.footer-bottom a{ color: rgba(255,255,255,0.6); }
+.footer-legal{ display:flex; gap:18px; }
+
+@media (max-width: 860px){
+  .footer-top{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px){
+  .footer-top{ grid-template-columns: 1fr; }
+  .cta-grid{ grid-template-columns:1fr; }
+}
+
+/* ---------------------------------------------------------
+   Interior page header band (About / Projects / Partners / Legal)
+   --------------------------------------------------------- */
+.page-header{
+  background: linear-gradient(180deg, #F6FAFA 0%, #FFFFFF 100%);
+  padding: 64px 0 52px; border-bottom:1px solid var(--border);
+  overflow:hidden; position:relative;
+}
+.page-header .container{ position:relative; z-index:1; max-width: 760px; }
+.page-header h1{ margin-top:12px; color: var(--navy-deep); font-size: clamp(2rem,3.6vw,2.75rem); }
+.page-header .lede{ margin-top:16px; max-width:60ch; }
+.page-header .lattice-bg svg{ opacity:0.35; }
+
+/* ---------------------------------------------------------
+   Product preview illustration (replaces literal screenshots)
+   --------------------------------------------------------- */
+.preview-frame{
+  border-radius: var(--radius-lg); border:1px solid var(--border); box-shadow: var(--shadow-lg);
+  overflow:hidden; background:#fff; max-width: 680px; margin:0 auto;
+}
+.preview-frame svg{ width:100%; height:auto; display:block; }
+.preview-captions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:26px; }
+.preview-captions span{
+  display:inline-flex; align-items:center; gap:8px; font-size:0.85rem; font-weight:600; color: var(--navy);
+  background: var(--cyan-soft); border-radius:999px; padding:8px 16px;
+}
+.preview-captions svg{ width:15px; height:15px; color: var(--cyan-text); }
+
+/* persona card icon watermark (large, faint, echoes the small crisp icon) */
+.persona-card{ }
+.persona-watermark{
+  position:absolute; right:-14px; bottom:-14px; width:108px; height:108px; opacity:0.10;
+  color:#fff; z-index:0; transform: rotate(-6deg);
+}
+.persona-card .icon-tile, .persona-card h3, .persona-card p{ position:relative; z-index:1; }
+
+/* ---------------------------------------------------------
+   Legal / long-form content pages
+   --------------------------------------------------------- */
+.legal-content{ max-width: 760px; margin: 0 auto; }
+.legal-content h2{ color: var(--navy-deep); font-size:1.25rem; margin-top:38px; margin-bottom:12px; }
+.legal-content h2:first-child{ margin-top:0; }
+.legal-content p{ color: var(--slate); margin-bottom:14px; }
+.legal-content ul{ margin: 0 0 14px; padding-left:22px; list-style:disc; color:var(--slate); }
+.legal-content li{ margin-bottom:6px; }
+
+.placeholder-note.on-light{
+  border-color: rgba(11,61,87,0.28); background: var(--cyan-soft);
+  color: var(--ink);
+}
+.placeholder-note.on-light strong{ color: var(--navy-deep); }
+.placeholder-note.on-light svg{ color: var(--cyan-text); }
+
+/* simple content placeholder card, used on About / Projects / Partners */
+.content-placeholder{
+  border: 1.5px dashed var(--border); border-radius: var(--radius-lg); padding: 34px 28px;
+  text-align:center; color: var(--slate); background: var(--paper-alt);
+}
+.content-placeholder svg{ width:30px; height:30px; color: var(--cyan-text); margin:0 auto 14px; }
+.content-placeholder h3{ color: var(--navy-deep); margin-bottom:8px; }
+.content-placeholder p{ max-width:46ch; margin:0 auto; font-size:0.92rem; }
+
+/* ---------------------------------------------------------
+   Scroll reveal
+   --------------------------------------------------------- */
+.reveal{ opacity:0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; } }
+</style>
+</head>
+<body>
+<a class="visually-hidden" href="#main">Skip to content</a>
+
+<div class="utility-bar">
+  <div class="container">
+    <span>Human-centered healthcare technology — EMR, AI, virtual care, analytics, and interoperability.</span>
+    <a href="mailto:ashaolu@medivosolutions.com">ashaolu@medivosolutions.com</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container">
+    <a href="index.html" class="brand" aria-label="Medivo home">
+      <img src="https://medivosolutions.com/assets/img/medivo-logo-main.png" alt="Medivo">
+    </a>
+
+    <nav aria-label="Primary">
+      <ul class="nav-desktop">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li>
+          <a class="nav-link" href="index.html#products" aria-haspopup="true">Products &amp; Services <span class="nav-caret" aria-hidden="true"></span></a>
+          <div class="nav-dropdown">
+            <a href="index.html#emr">Medivo EMR</a>
+            <a href="index.html#ai">AI, Automation &amp; Analytics</a>
+            <a href="index.html#connect">Interoperability &amp; Health Data</a>
+            <a href="index.html#products">Managed HealthTech Services</a>
+          </div>
+        </li>
+        <li><a class="nav-link" href="index.html#clinics">For Clinics</a></li>
+        <li><a class="nav-link" href="index.html#investors">Investors</a></li>
+        <li><a class="nav-link" href="projects.html">Projects</a></li>
+        <li><a class="nav-link" href="partners.html">Partners</a></li>
+        <li><a class="nav-link" href="about.html">About</a></li>
+        <li><a class="nav-link" href="index.html#contact-form">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a href="index.html#contact-form" class="btn btn-ghost">Contact</a>
+      <a href="index.html#contact-form" class="btn btn-primary">Book a Demo</a>
+      <button class="menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <nav class="nav-mobile" id="mobile-nav" aria-label="Mobile">
+      <a href="index.html">Home</a>
+      <a href="index.html#emr">Medivo EMR</a>
+      <a href="index.html#ai">AI, Automation &amp; Analytics</a>
+      <a href="index.html#connect">Interoperability &amp; Health Data</a>
+      <a href="index.html#products">Managed HealthTech Services</a>
+      <a href="index.html#clinics">For Clinics</a>
+      <a href="index.html#investors">Investors</a>
+      <a href="projects.html">Projects</a>
+      <a href="partners.html">Partners</a>
+      <a href="about.html">About</a>
+      <a href="index.html#contact-form">Contact</a>
+      <a href="index.html#contact-form" class="btn btn-primary btn-block">Book a Demo</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Health Technology, Connected</p>
+        <h1 class="h-xl">Smarter care starts with <span class="text-gradient">connected</span> people.</h1>
+        <p class="lede">Medivo EMR anchors a connected health technology platform for modern clinics — AI-assisted documentation, patient engagement, virtual care, and interoperability, all built around the people using it.</p>
+        <div class="hero-actions">
+          <a href="#contact-form" class="btn btn-primary">Book a Demo</a>
+          <a href="#emr" class="btn btn-ghost">Explore Medivo EMR</a>
+        </div>
+        <div class="trust-strip">
+          <span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg> EMR-anchored platform</span>
+          <span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/></svg> Built for family clinics</span>
+          <span class="item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2.2"/><circle cx="5" cy="17" r="2.2"/><circle cx="19" cy="17" r="2.2"/><path d="M12 8.2L6.6 15.2M12 8.2l5.4 7M7.2 17h9.6"/></svg> One connected suite</span>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <svg viewBox="0 0 560 480" role="img" aria-hidden="true">
+          <defs>
+            <radialGradient id="heroGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.32"/>
+              <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="hubGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--cyan)" stop-opacity="0.55"/>
+              <stop offset="100%" stop-color="var(--cyan)" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="nodeFill" cx="35%" cy="30%" r="75%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="100%" stop-color="#EAF7F5"/>
+            </radialGradient>
+            <radialGradient id="hubFill" cx="35%" cy="28%" r="75%">
+              <stop offset="0%" stop-color="#0F5876"/>
+              <stop offset="100%" stop-color="var(--navy-deep)"/>
+            </radialGradient>
+            <linearGradient id="linkGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--cyan)"/>
+              <stop offset="100%" stop-color="var(--amber)"/>
+            </linearGradient>
+            <pattern id="hexTex" width="34" height="30" patternUnits="userSpaceOnUse">
+              <path d="M17 0 34 8.5 34 21.5 17 30 0 21.5 0 8.5Z" fill="none" stroke="var(--navy)" stroke-width="0.6" opacity="0.5"/>
+            </pattern>
+          </defs>
+
+          <circle cx="280" cy="230" r="230" fill="url(#hexTex)" opacity="0.35"
+                  style="mask-image:radial-gradient(230px 230px at 280px 230px,#000 55%,transparent 92%);-webkit-mask-image:radial-gradient(230px 230px at 280px 230px,#000 55%,transparent 92%)"/>
+
+          <g class="ng-particles">
+            <circle cx="42" cy="38" r="2.2"/><circle cx="525" cy="42" r="1.8"/><circle cx="38" cy="290" r="1.8"/>
+            <circle cx="528" cy="295" r="2.2"/><circle cx="250" cy="16" r="1.6"/><circle cx="300" cy="463" r="1.8"/>
+            <circle cx="55" cy="440" r="1.6"/><circle cx="497" cy="435" r="2"/><circle cx="16" cy="180" r="1.8"/>
+            <circle cx="546" cy="188" r="1.6"/>
+          </g>
+
+          <circle cx="280" cy="230" r="165" fill="url(#heroGlow)"/>
+          <circle cx="280" cy="230" r="80" fill="url(#hubGlow)"/>
+
+          <path class="ng-link" d="M280,55 Q250,150 280,230" fill="none" stroke="url(#linkGradient)" stroke-width="2.25" opacity="0.6" style="animation-delay:-0.2s"/>
+          <path class="ng-link" d="M456,173 Q400,140 280,230" fill="none" stroke="url(#linkGradient)" stroke-width="2.25" opacity="0.6" style="animation-delay:-0.7s"/>
+          <path class="ng-link" d="M389,380 Q360,310 280,230" fill="none" stroke="url(#linkGradient)" stroke-width="2.25" opacity="0.6" style="animation-delay:-1.2s"/>
+          <path class="ng-link" d="M171,380 Q210,310 280,230" fill="none" stroke="url(#linkGradient)" stroke-width="2.25" opacity="0.6" style="animation-delay:-1.7s"/>
+          <path class="ng-link" d="M104,173 Q170,140 280,230" fill="none" stroke="url(#linkGradient)" stroke-width="2.25" opacity="0.6" style="animation-delay:-2.2s"/>
+
+          <circle class="ng-pulse" r="3.6" fill="var(--amber)">
+            <animateMotion dur="3.4s" begin="0s" repeatCount="indefinite" path="M280,55 Q250,150 280,230"/>
+          </circle>
+          <circle class="ng-pulse" r="3.6" fill="var(--amber)">
+            <animateMotion dur="3.4s" begin="-0.7s" repeatCount="indefinite" path="M456,173 Q400,140 280,230"/>
+          </circle>
+          <circle class="ng-pulse" r="3.6" fill="var(--amber)">
+            <animateMotion dur="3.4s" begin="-1.4s" repeatCount="indefinite" path="M389,380 Q360,310 280,230"/>
+          </circle>
+          <circle class="ng-pulse" r="3.6" fill="var(--amber)">
+            <animateMotion dur="3.4s" begin="-2.1s" repeatCount="indefinite" path="M171,380 Q210,310 280,230"/>
+          </circle>
+          <circle class="ng-pulse" r="3.6" fill="var(--amber)">
+            <animateMotion dur="3.4s" begin="-2.8s" repeatCount="indefinite" path="M104,173 Q170,140 280,230"/>
+          </circle>
+
+          <circle class="ng-hub-ring" cx="280" cy="230" r="58" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+          <circle class="ng-hub-ring" cx="280" cy="230" r="70" fill="none" stroke="var(--cyan)" stroke-width="1" opacity="0.6" style="animation-delay:-1.2s"/>
+          <g class="ng-scan" transform="translate(280,230)">
+            <circle r="88" fill="none" stroke="var(--cyan)" stroke-width="1.4" stroke-dasharray="3 10" opacity="0.55"/>
+          </g>
+
+          <g transform="translate(280,55)">
+            <circle r="35" fill="var(--cyan)" opacity="0.14"/>
+            <circle r="32" fill="url(#nodeFill)" stroke="var(--cyan)" stroke-width="1.5"/>
+            <g stroke="var(--navy)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-11,-11) scale(0.92)">
+              <path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/><path d="M9 12h.01M15 12h.01M9 9h.01M15 9h.01"/>
+            </g>
+            <text y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--slate)">Clinics</text>
+          </g>
+
+          <g transform="translate(456,173)">
+            <circle r="35" fill="var(--cyan)" opacity="0.14"/>
+            <circle r="32" fill="url(#nodeFill)" stroke="var(--cyan)" stroke-width="1.5"/>
+            <g stroke="var(--navy)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-11,-11) scale(0.92)">
+              <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>
+            </g>
+            <text y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--slate)">Payers</text>
+          </g>
+
+          <g transform="translate(389,380)">
+            <circle r="35" fill="var(--cyan)" opacity="0.14"/>
+            <circle r="32" fill="url(#nodeFill)" stroke="var(--cyan)" stroke-width="1.5"/>
+            <g stroke="var(--navy)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-11,-11) scale(0.92)">
+              <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6"/><path d="M12 11v6M10 12.4c0-.9.9-1.4 2-1.4s2 .5 2 1.4c0 1.9-4 1.2-4 3.1 0 .9.9 1.4 2 1.4s2-.5 2-1.4"/>
+            </g>
+            <text y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--slate)">Pharmacy</text>
+          </g>
+
+          <g transform="translate(171,380)">
+            <circle r="35" fill="var(--cyan)" opacity="0.14"/>
+            <circle r="32" fill="url(#nodeFill)" stroke="var(--cyan)" stroke-width="1.5"/>
+            <g stroke="var(--navy)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-11,-11) scale(0.92)">
+              <path d="M9 3h6M10 3v6l-5.5 9.5A2 2 0 006.2 21h11.6a2 2 0 001.7-3L14 9V3"/><path d="M8 15h8"/>
+            </g>
+            <text y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--slate)">Labs</text>
+          </g>
+
+          <g transform="translate(104,173)">
+            <circle r="35" fill="var(--cyan)" opacity="0.14"/>
+            <circle r="32" fill="url(#nodeFill)" stroke="var(--cyan)" stroke-width="1.5"/>
+            <g stroke="var(--navy)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-11,-11) scale(0.92)">
+              <path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.4 5 6 5c2.1 0 3.6 1.2 6 3.6C14.4 6.2 15.9 5 18 5c3.6 0 5.4 3.4 4 6.7C19.5 16.4 12 21 12 21z"/>
+            </g>
+            <text y="52" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="var(--slate)">Patients</text>
+          </g>
+
+          <g transform="translate(280,230)">
+            <circle r="50" fill="var(--navy)" opacity="0.16"/>
+            <circle r="44" fill="url(#hubFill)"/>
+            <circle r="44" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+            <g stroke="#fff" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(-12,-14) scale(1)">
+              <rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>
+            </g>
+            <text y="30" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" letter-spacing="0.05em" fill="#fff">EMR</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT PREVIEW (illustrated — enhances imagery without stock photos) ============ -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-head center reveal">
+        <p class="eyebrow" style="justify-content:center">Inside Medivo EMR</p>
+        <h2 class="h-lg">A clinical workspace built for how clinics <span class="text-gradient">actually work</span>.</h2>
+        <p class="lede" style="margin-left:auto;margin-right:auto">One workspace for charts, scheduling, and documentation — stylized here to show the shape of the product, not a literal screenshot.</p>
+      </div>
+
+      <div class="preview-frame reveal">
+        <svg viewBox="0 0 640 420" role="img" aria-label="Stylized illustration of the Medivo EMR workspace, showing a patient chart, activity chart, and calendar">
+          <defs>
+            <clipPath id="frameClip"><rect x="0" y="0" width="640" height="420" rx="18"/></clipPath>
+          </defs>
+          <g clip-path="url(#frameClip)">
+            <rect x="0" y="0" width="640" height="420" fill="#fff"/>
+            <rect x="0" y="0" width="640" height="44" fill="var(--paper-alt)"/>
+            <circle cx="24" cy="22" r="4" fill="var(--border)"/>
+            <circle cx="42" cy="22" r="4" fill="var(--border)"/>
+            <circle cx="60" cy="22" r="4" fill="var(--border)"/>
+            <rect x="94" y="12" width="230" height="20" rx="10" fill="#fff" stroke="var(--border)"/>
+
+            <rect x="0" y="44" width="86" height="376" fill="var(--paper-alt)"/>
+            <rect x="18" y="68" width="50" height="40" rx="10" fill="var(--navy)"/>
+            <rect x="30" y="82" width="26" height="4" rx="2" fill="#fff"/>
+            <rect x="30" y="90" width="18" height="4" rx="2" fill="#fff" opacity="0.7"/>
+            <g fill="var(--slate)" opacity="0.55">
+              <rect x="18" y="122" width="50" height="40" rx="10" fill="none" stroke="var(--border)"/>
+              <rect x="30" y="136" width="26" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="30" y="144" width="18" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="18" y="176" width="50" height="40" rx="10" fill="none" stroke="var(--border)"/>
+              <rect x="30" y="190" width="26" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="30" y="198" width="18" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="18" y="230" width="50" height="40" rx="10" fill="none" stroke="var(--border)"/>
+              <rect x="30" y="244" width="26" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="30" y="252" width="18" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="18" y="284" width="50" height="40" rx="10" fill="none" stroke="var(--border)"/>
+              <rect x="30" y="298" width="26" height="4" rx="2" fill="var(--slate)"/>
+              <rect x="30" y="306" width="18" height="4" rx="2" fill="var(--slate)"/>
+            </g>
+
+            <text x="110" y="82" font-family="IBM Plex Sans, sans-serif" font-size="17" font-weight="700" fill="var(--navy-deep)">J. Rivera</text>
+            <text x="110" y="100" font-family="IBM Plex Sans, sans-serif" font-size="12" fill="var(--slate)">Annual wellness visit · Today, 10:30 AM</text>
+            <rect x="530" y="66" width="86" height="24" rx="12" fill="var(--cyan-soft)"/>
+            <text x="573" y="82" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600" fill="var(--cyan-text)">STABLE</text>
+
+            <g font-family="IBM Plex Sans, sans-serif">
+              <rect x="110" y="120" width="150" height="70" rx="12" fill="var(--paper-alt)"/>
+              <text x="126" y="146" font-size="20" font-weight="700" fill="var(--navy-deep)">128</text>
+              <text x="126" y="164" font-size="10.5" fill="var(--slate)">Visits (30 days)</text>
+
+              <rect x="272" y="120" width="150" height="70" rx="12" fill="var(--paper-alt)"/>
+              <text x="288" y="146" font-size="20" font-weight="700" fill="var(--navy-deep)">6 min</text>
+              <text x="288" y="164" font-size="10.5" fill="var(--slate)">Avg. wait time</text>
+
+              <rect x="434" y="120" width="150" height="70" rx="12" fill="var(--paper-alt)"/>
+              <text x="450" y="146" font-size="20" font-weight="700" fill="var(--navy-deep)">94%</text>
+              <text x="450" y="164" font-size="10.5" fill="var(--slate)">Notes completed</text>
+            </g>
+
+            <rect x="110" y="210" width="312" height="150" rx="12" fill="#fff" stroke="var(--border)"/>
+            <text x="128" y="236" font-family="IBM Plex Sans, sans-serif" font-size="12.5" font-weight="600" fill="var(--navy-deep)">Recent activity</text>
+            <g font-family="IBM Plex Sans, sans-serif" font-size="11" fill="var(--slate)">
+              <circle cx="132" cy="258" r="3.5" fill="var(--cyan)"/>
+              <text x="144" y="262">Lab results reviewed</text>
+              <rect x="330" y="253" width="72" height="8" rx="4" fill="var(--cyan-soft)"/>
+              <rect x="330" y="253" width="52" height="8" rx="4" fill="var(--cyan)"/>
+
+              <circle cx="132" cy="284" r="3.5" fill="var(--amber)"/>
+              <text x="144" y="288">AI note draft ready</text>
+              <rect x="330" y="279" width="72" height="8" rx="4" fill="#F6E8CE"/>
+              <rect x="330" y="279" width="60" height="8" rx="4" fill="var(--amber)"/>
+
+              <circle cx="132" cy="310" r="3.5" fill="var(--navy)"/>
+              <text x="144" y="314">Prescription renewed</text>
+              <rect x="330" y="305" width="72" height="8" rx="4" fill="var(--paper-alt)"/>
+              <rect x="330" y="305" width="40" height="8" rx="4" fill="var(--navy)"/>
+
+              <circle cx="132" cy="336" r="3.5" fill="var(--cyan)"/>
+              <text x="144" y="340">Follow-up scheduled</text>
+              <rect x="330" y="331" width="72" height="8" rx="4" fill="var(--cyan-soft)"/>
+              <rect x="330" y="331" width="30" height="8" rx="4" fill="var(--cyan)"/>
+            </g>
+
+            <rect x="438" y="210" width="146" height="150" rx="12" fill="#fff" stroke="var(--border)"/>
+            <text x="454" y="236" font-family="IBM Plex Sans, sans-serif" font-size="12.5" font-weight="600" fill="var(--navy-deep)">This week</text>
+            <g>
+              <!-- 7x3 calendar dot grid -->
+              <circle cx="458" cy="256" r="8" fill="var(--paper-alt)"/><circle cx="482" cy="256" r="8" fill="var(--paper-alt)"/><circle cx="506" cy="256" r="8" fill="var(--paper-alt)"/><circle cx="530" cy="256" r="8" fill="var(--paper-alt)"/><circle cx="554" cy="256" r="8" fill="var(--navy)"/>
+              <circle cx="458" cy="280" r="8" fill="var(--paper-alt)"/><circle cx="482" cy="280" r="8" fill="var(--paper-alt)"/><circle cx="506" cy="280" r="8" fill="var(--paper-alt)"/><circle cx="530" cy="280" r="8" fill="var(--paper-alt)"/><circle cx="554" cy="280" r="8" fill="var(--paper-alt)"/>
+              <text x="554" y="259.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#fff">12</text>
+            </g>
+            <text x="454" y="320" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--slate)">3 appointments</text>
+            <text x="454" y="336" font-family="IBM Plex Sans, sans-serif" font-size="10.5" fill="var(--slate)">remaining today</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="preview-captions reveal">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg> Patient charts</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 10-10-3-3L5 16l-1 4z"/></svg> AI-assisted notes</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> Smart scheduling</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POSITIONING ============ -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-head center reveal">
+        <p class="eyebrow" style="justify-content:center">Company Positioning</p>
+        <h2 class="h-lg">Medivo is more than EMR. EMR is the <span class="text-gradient">star player</span>.</h2>
+        <p class="lede" style="margin-left:auto;margin-right:auto">Medivo is a health technology platform, not a single tool. EMR anchors the system — AI, patient engagement, virtual care, interoperability, and billing extend it across the whole care journey.</p>
+      </div>
+
+      <div class="icon-card-grid">
+        <div class="icon-card reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="9" r="3"/><path d="M2 20c0-3.5 2.7-6 6-6s6 2.5 6 6M12 20c0-2.8 2.1-5 5-5s5 2.2 5 5"/></svg></div>
+          <h3>Human-centered healthcare</h3>
+          <p>Designed around physicians, patients, and care teams — not just the people who administer the software.</p>
+        </div>
+        <div class="icon-card reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l9-5 9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
+          <h3>Enterprise-ready foundation</h3>
+          <p>Built for individual clinics today, with the architecture to grow into larger health systems over time.</p>
+        </div>
+        <div class="icon-card reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l1.8 5.6L19.5 9l-5.7 1.4L12 16l-1.8-5.6L4.5 9l5.7-1.4L12 2z"/></svg></div>
+          <h3>Premium digital experience</h3>
+          <p>Modern interface design that clinics actually want to use — built for adoption, not just procurement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTS ============ -->
+  <section class="section-pad section-alt" id="products">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Products &amp; Services</p>
+        <h2 class="h-lg">One health technology company. A <span class="text-gradient">connected suite</span> of medical solutions.</h2>
+        <p class="lede">Medivo EMR leads the product suite. Related modules extend it across clinical workflow, patient engagement, automation, and connected health data.</p>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card is-star reveal" id="emr">
+          <div class="product-top"><span class="module-code">EMR</span><span class="star-tag">Star Product</span></div>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+          <h3 class="h-md">Medivo EMR</h3>
+          <p>The clinical anchor: patient charts, physician workflows, documentation, scheduling, forms, billing prep, audit logs, and day-to-day clinic operations.</p>
+        </div>
+
+        <div class="product-card reveal" id="ai">
+          <div class="product-top"><span class="module-code">AI</span></div>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 10-10-3-3L5 16l-1 4z"/><path d="M14.5 5.5l3 3"/><path d="M19 3l.7 1.8L21.5 5.5l-1.8.7L19 8l-.7-1.8-1.8-.7 1.8-.7z"/></svg></div>
+          <h3 class="h-md">AI Scribe &amp; Clinical Assistant</h3>
+          <p>AI-assisted note drafts, summarization, task routing, and workflow intelligence built around clinical teams.</p>
+        </div>
+
+        <div class="product-card reveal" id="patient">
+          <div class="product-top"><span class="module-code">PT</span></div>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4V5z"/><path d="M8 9h8M8 12h5"/></svg></div>
+          <h3 class="h-md">Patient Engagement</h3>
+          <p>Portal, forms, appointments, prescription renewals, messages, and care communications patients can actually use.</p>
+        </div>
+
+        <div class="product-card reveal" id="virtual">
+          <div class="product-top"><span class="module-code">VC</span></div>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l6-3v10l-6-3z"/></svg></div>
+          <h3 class="h-md">Virtual Care</h3>
+          <p>Video consultations, secure chat, remote follow-up, and continuity of care between in-person visits.</p>
+        </div>
+
+        <div class="product-card reveal" id="connect">
+          <div class="product-top"><span class="module-code">CN</span></div>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="6" r="2.2"/><circle cx="5" cy="17" r="2.2"/><circle cx="19" cy="17" r="2.2"/><path d="M12 8.2L6.6 15.2M12 8.2l5.4 7M7.2 17h9.6"/></svg></div>
+          <h3 class="h-md">Medivo Connect</h3>
+          <p>The interoperability hub connecting clinics, labs, pharmacies, payers, and public health systems.</p>
+        </div>
+
+        <div class="product-card reveal" id="billing">
+          <div class="product-top"><span class="module-code">RC</span></div>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6"/><path d="M12 11v6M10 12.4c0-.9.9-1.4 2-1.4s2 .5 2 1.4c0 1.9-4 1.2-4 3.1 0 .9.9 1.4 2 1.4s2-.5 2-1.4"/></svg></div>
+          <h3 class="h-md">Billing &amp; Revenue Cycle</h3>
+          <p>Billing preparation, claim readiness, reporting, and payments — with payer connectivity on the roadmap.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLINIC VALUE ============ -->
+  <section class="section-pad" id="clinics">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">For Clinics</p>
+        <h2 class="h-lg">Built for family physician clinics that need speed, simplicity, and trust.</h2>
+        <p class="lede">Medivo's clinic-facing value is practical: reduce admin work, simplify documentation, improve patient access, and prepare clinics for a more connected digital future.</p>
+      </div>
+      <div class="value-grid">
+        <div class="value-card reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8.5 11.5l2 2 4-4.5M8.5 16h5"/></svg></div>
+          <h3>Less documentation burden</h3>
+          <p>AI-assisted note review, reusable templates, forms, and smart workflows cut down on repetitive tasks.</p>
+        </div>
+        <div class="value-card reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15.5" r="2.2"/></svg></div>
+          <h3>Better patient access</h3>
+          <p>Patient portal, secure messaging, appointments, forms, and prescription renewal requests, all in one place.</p>
+        </div>
+        <div class="value-card reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v2.5M12 18.5V21M4.9 7.5l2.2 1.3M16.9 15.2l2.2 1.3M4.9 16.5l2.2-1.3M16.9 8.8l2.2-1.3"/></svg></div>
+          <h3>Cleaner clinic operations</h3>
+          <p>Scheduling, billing prep, audit logs, reporting, and team task visibility, without the spreadsheet sprawl.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHO MEDIVO SERVES (icon personas — no stock photography) ============ -->
+  <section class="section-pad section-alt">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Who Medivo Serves</p>
+        <h2 class="h-lg">Designed for real people in healthcare.</h2>
+        <p class="lede">Every part of the platform is built around the people who touch it every day — not just the administrators who buy it.</p>
+      </div>
+      <div class="persona-grid">
+        <div class="persona-card reveal">
+          <svg class="persona-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/></svg>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.4"/><path d="M5 21c0-4 3-6.5 7-6.5s7 2.5 7 6.5"/></svg></div>
+          <h3>Physicians</h3>
+          <p>Faster workflows, smarter documentation, and more clinical context in less time.</p>
+        </div>
+        <div class="persona-card reveal">
+          <svg class="persona-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.4 5 6 5c2.1 0 3.6 1.2 6 3.6C14.4 6.2 15.9 5 18 5c3.6 0 5.4 3.4 4 6.7C19.5 16.4 12 21 12 21z"/></svg>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7.5-4.6-10-9.3C.6 8.4 2.4 5 6 5c2.1 0 3.6 1.2 6 3.6C14.4 6.2 15.9 5 18 5c3.6 0 5.4 3.4 4 6.7C19.5 16.4 12 21 12 21z"/></svg></div>
+          <h3>Patients</h3>
+          <p>Clearer access to appointments, forms, messages, and care updates.</p>
+        </div>
+        <div class="persona-card reveal">
+          <svg class="persona-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><circle cx="7" cy="8" r="2.6"/><circle cx="17" cy="8" r="2.6"/><circle cx="12" cy="6.4" r="2.6"/><path d="M2 20.5c0-3.3 2.5-5.7 6-5.7M22 20.5c0-3.3-2.5-5.7-6-5.7M6.5 20.5c0-3.6 2.9-6.4 5.5-6.4s5.5 2.8 5.5 6.4"/></svg>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="8" r="2.6"/><circle cx="17" cy="8" r="2.6"/><circle cx="12" cy="6.4" r="2.6"/><path d="M2 20.5c0-3.3 2.5-5.7 6-5.7M22 20.5c0-3.3-2.5-5.7-6-5.7M6.5 20.5c0-3.6 2.9-6.4 5.5-6.4s5.5 2.8 5.5 6.4"/></svg></div>
+          <h3>Clinic Teams</h3>
+          <p>More efficient scheduling, billing preparation, forms, and administrative work.</p>
+        </div>
+        <div class="persona-card reveal">
+          <svg class="persona-watermark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+          <h3>Health Leaders</h3>
+          <p>Operational insight, compliance-ready evidence, and a platform that scales.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST & SECURITY (placeholders clearly flagged) ============ -->
+  <section class="section-pad trust-band">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow on-dark">Security &amp; Trust</p>
+        <h2 class="h-lg">Built for healthcare's <span class="text-gradient on-dark">highest standards</span>.</h2>
+        <p class="lede">Security and privacy aren't an add-on — they're part of how Medivo is architected, from clinical data handling to day-to-day platform operations.</p>
+      </div>
+      <div class="trust-band-grid">
+        <div class="trust-item reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg></div>
+          <h3>Data Privacy Principles</h3>
+          <p>[Add: your data handling and privacy commitments — e.g. HIPAA-aligned practices, data minimization, access controls.]</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/></svg></div>
+          <h3>Security Practices</h3>
+          <p>[Add: your specific measures — encryption, authentication, monitoring — once confirmed with engineering.]</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="5"/><path d="M9 13.5L7 21l5-2.5L17 21l-2-7.5"/></svg></div>
+          <h3>Compliance Posture</h3>
+          <p>[Add: any certifications, audits, or frameworks you currently hold or are pursuing — e.g. HIPAA, SOC 2.]</p>
+        </div>
+        <div class="trust-item reveal">
+          <div class="icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 5l-2 14"/></svg></div>
+          <h3>Built By</h3>
+          <p>[Add: a line about your team's healthcare/engineering background, or a link to your About page.]</p>
+        </div>
+      </div>
+      <div class="placeholder-note reveal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        <span><strong>Before this goes live:</strong> replace the bracketed text above with your real, verified details. Don't state a certification or security practice unless it's actually true — inaccurate compliance claims are a genuine liability in healthcare. If you don't have certifications yet, swap this section for team credentials or your security philosophy instead.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INVESTOR NARRATIVE ============ -->
+  <section class="section-pad" id="investors">
+    <div class="container investor-grid">
+      <div class="investor-visual reveal" aria-hidden="true">
+        <svg viewBox="0 0 320 260" width="100%" role="img" aria-hidden="true">
+          <rect x="20" y="170" width="280" height="60" rx="10" fill="var(--navy)"/>
+          <text x="160" y="205" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#fff">EMR — entry point</text>
+          <rect x="40" y="120" width="240" height="42" rx="10" fill="var(--navy)" opacity="0.78"/>
+          <text x="160" y="146" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#fff">+ AI &amp; automation</text>
+          <rect x="60" y="76" width="200" height="38" rx="10" fill="var(--cyan)" opacity="0.85"/>
+          <text x="160" y="100" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#04302B">+ patient &amp; virtual care</text>
+          <rect x="80" y="34" width="160" height="36" rx="10" fill="var(--amber)"/>
+          <text x="160" y="57" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#3A2707">+ Connect &amp; billing</text>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Investor Narrative</p>
+        <h2 class="h-lg">Built as a scalable digital health platform, not a single clinic tool.</h2>
+        <p class="lede">Medivo's model starts with a focused EMR entry point into family clinics, then expands wallet share through AI, patient engagement, interoperability, virtual care, analytics, and managed services — layered onto the same customer relationship.</p>
+        <ul class="investor-list">
+          <li><span class="code">EMR</span><div><h4>Entry point &amp; system of record</h4><p>The wedge that gets Medivo into a clinic and anchors daily use.</p></div></li>
+          <li><span class="code">+AI</span><div><h4>Workflow layer</h4><p>AI, automation, and analytics deepen usage and switching cost.</p></div></li>
+          <li><span class="code">+PT</span><div><h4>Patient layer</h4><p>Portal and virtual care extend the platform's reach to patients.</p></div></li>
+          <li><span class="code">+CN</span><div><h4>Network layer</h4><p>Medivo Connect and billing widen the moat across the ecosystem.</p></div></li>
+        </ul>
+        <a href="#contact-form" class="btn btn-ghost" style="margin-top:26px">Talk to Investor Relations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA / CONTACT FORM ============ -->
+  <section class="section-pad cta-band" id="contact-form">
+    <div class="container cta-grid">
+      <div class="cta-copy reveal">
+        <p class="eyebrow on-dark">Talk About The Future</p>
+        <h2 class="h-lg">Start a conversation with <span class="text-gradient on-dark">Medivo</span>.</h2>
+        <p class="lede">Whether you're a clinic exploring EMR options, an investor evaluating the platform, or a partner exploring integration — tell us a bit about what you're looking for.</p>
+        <ul class="cta-points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Clinics — see Medivo EMR in action</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Investors — request the platform overview</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Partners — explore integration &amp; Medivo Connect</li>
+        </ul>
+      </div>
+
+      <form class="contact-form reveal" data-contact-form novalidate>
+        <div class="form-row">
+          <label for="cf-role">I'm reaching out as a…</label>
+          <div class="role-toggle" id="cf-role">
+            <input type="radio" name="role" id="role-clinic" value="Clinic" checked><label for="role-clinic">Clinic</label>
+            <input type="radio" name="role" id="role-investor" value="Investor"><label for="role-investor">Investor</label>
+            <input type="radio" name="role" id="role-partner" value="Partner"><label for="role-partner">Partner</label>
+            <input type="radio" name="role" id="role-media" value="Media"><label for="role-media">Media</label>
+            <input type="radio" name="role" id="role-other" value="Other"><label for="role-other">Other</label>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="cf-name">Name <span class="req">*</span></label>
+          <input type="text" id="cf-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="form-row">
+          <label for="cf-email">Email <span class="req">*</span></label>
+          <input type="email" id="cf-email" name="email" autocomplete="email" required>
+        </div>
+        <div class="form-row">
+          <label for="cf-org">Organization</label>
+          <input type="text" id="cf-org" name="organization" autocomplete="organization">
+        </div>
+        <div class="form-row">
+          <label for="cf-message">Message <span class="req">*</span></label>
+          <textarea id="cf-message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+        <p class="form-note">This opens a pre-filled email to ashaolu@medivosolutions.com — nothing is sent anywhere else.</p>
+        <p class="form-status" data-form-status role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+<footer class="site-footer">
+  <div class="container footer-top">
+    <div class="footer-brand">
+      <img src="https://medivosolutions.com/assets/img/medivo-logo-main.png" alt="Medivo">
+      <p>Medivo is a health technology company building smarter digital care infrastructure, with EMR as the star platform and a broader suite of connected medical solutions.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="index.html#emr">Medivo EMR</a></li>
+        <li><a href="index.html#ai">AI &amp; Automation</a></li>
+        <li><a href="index.html#connect">Medivo Connect</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Stakeholders</h4>
+      <ul>
+        <li><a href="index.html#clinics">For Clinics</a></li>
+        <li><a href="index.html#investors">Investors</a></li>
+        <li><a href="partners.html">Partners</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="index.html#contact-form">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© <span data-year>2026</span> Medivo. Smarter Care. Better Outcomes.</span>
+    <div class="footer-legal">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-use.html">Terms of Use</a>
+    </div>
+  </div>
+</footer>
+
+<script>/* ===========================================================
+   MEDIVO — shared site script
+   Mobile nav, dynamic year, scroll reveal, contact form handling.
+   =========================================================== */
+(function () {
+  "use strict";
+
+  /* ---- Mobile nav toggle ---- */
+  var menuToggle = document.querySelector("[data-menu-toggle]");
+  if (menuToggle) {
+    menuToggle.addEventListener("click", function () {
+      var isOpen = document.body.classList.toggle("nav-open");
+      menuToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  }
+  // Close mobile menu after tapping a link
+  document.querySelectorAll(".nav-mobile a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      document.body.classList.remove("nav-open");
+      if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  /* ---------------------------------------------------------
+     Reliable scroll-to-anchor
+     ---------------------------------------------------------
+     CSS `scroll-behavior: smooth` on <html> can silently break
+     the browser's native "jump to URL fragment" behavior,
+     especially right after a fresh page load (the layout isn't
+     settled yet when the browser tries to position the scroll).
+     This was caught by automated testing: links like
+     about.html -> index.html#clinics were landing on the right
+     PAGE but not scrolling to the right SECTION. Handling it by
+     hand fixes both a fresh navigation that lands on a hash and
+     an in-page click on an anchor link.
+     --------------------------------------------------------- */
+  function scrollToHashTarget(hash, instant) {
+    if (!hash || hash.length < 2) return;
+    var target = document.getElementById(hash.slice(1));
+    if (target) target.scrollIntoView({ behavior: instant ? "auto" : "smooth", block: "start" });
+  }
+  // Landing here from another page with a #hash in the URL: position instantly.
+  // (Native browser scroll-to-fragment can silently fail to happen at all when
+  // `scroll-behavior: smooth` is set on <html> — confirmed via testing — so this
+  // is handled explicitly rather than relying on default browser behavior.)
+  if (window.location.hash) {
+    window.addEventListener("load", function () {
+      // Applied twice: once quickly, once again after layout has had more time
+      // to settle (fonts, images). Cheap, and self-heals slower page loads
+      // rather than relying on a single fixed delay being "enough."
+      setTimeout(function () { scrollToHashTarget(window.location.hash, true); }, 60);
+      setTimeout(function () { scrollToHashTarget(window.location.hash, true); }, 400);
+    });
+  }
+  // Clicking an anchor link while already on the page: animate smoothly.
+  window.addEventListener("hashchange", function () {
+    scrollToHashTarget(window.location.hash, false);
+  });
+
+  /* ---- Dynamic copyright year ---- */
+  var yearEl = document.querySelector("[data-year]");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---- Scroll reveal (skipped entirely if reduced motion is preferred) ---- */
+  var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var revealEls = document.querySelectorAll(".reveal");
+  if (!prefersReducedMotion && "IntersectionObserver" in window && revealEls.length) {
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach(function (el) { observer.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+  }
+
+  /* ---------------------------------------------------------
+     Contact form
+     ---------------------------------------------------------
+     Works with zero backend: it assembles a pre-filled mailto:
+     link so the message opens directly in the visitor's email
+     client. This means it works the moment you publish, with
+     no server or form service required.
+
+     TO UPGRADE (recommended before heavy traffic — a mailto
+     link depends on the visitor having a desktop mail client
+     configured, and you won't get submissions in one place):
+     Replace the body of handleSubmit() below with a fetch()
+     POST to a form backend such as Formspree, Basin, or your
+     own API endpoint. Example:
+
+       fetch("https://formspree.io/f/yourFormId", {
+         method: "POST",
+         headers: { "Accept": "application/json" },
+         body: new FormData(form)
+       }).then(...)
+
+     Everything else on the page (validation, the status
+     message) can stay exactly the same.
+     --------------------------------------------------------- */
+  var form = document.querySelector("[data-contact-form]");
+  if (form) {
+    var statusEl = form.querySelector("[data-form-status]");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var data = new FormData(form);
+      var name = (data.get("name") || "").toString().trim();
+      var email = (data.get("email") || "").toString().trim();
+      var role = (data.get("role") || "Other").toString();
+      var org = (data.get("organization") || "").toString().trim();
+      var message = (data.get("message") || "").toString().trim();
+
+      if (!name || !email || !message) {
+        showStatus("Please fill in your name, email, and message before sending.", false);
+        return;
+      }
+
+      var subject = "Medivo inquiry (" + role + ") from " + name;
+      var bodyLines = [
+        "Name: " + name,
+        "Email: " + email,
+        "Organization: " + (org || "—"),
+        "Role: " + role,
+        "",
+        message
+      ];
+      var mailto =
+        "mailto:ashaolu@medivosolutions.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(bodyLines.join("\n"));
+
+      window.location.href = mailto;
+      showStatus("Opening your email client to send this — if nothing happens, email ashaolu@medivosolutions.com directly.", true);
+    });
+
+    function showStatus(text, success) {
+      if (!statusEl) return;
+      statusEl.textContent = text;
+      statusEl.classList.add("visible");
+      statusEl.classList.toggle("success", success);
+    }
+  }
+})();
+</script>
+</body>
+</html>
